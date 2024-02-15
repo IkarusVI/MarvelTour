@@ -1,0 +1,12 @@
+<div id="search-component">
+  <label for="search-box">Hero Search</label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+</div>
+
+<div *ngIf="hero">
+  <a routerLink="/detail/{{hero.id}}">
+    <img [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}">
+    <span>{{hero.name}}</span>
+    <span>{{hero.description}}</span>
+  </a>
+</div>
