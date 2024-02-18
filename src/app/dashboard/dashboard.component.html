@@ -1,15 +1,15 @@
 <div>
 
-  <p class="text-3xl  text-white text-start pb-5">Top Heroes</p>
-  <div class="w-full flex flex-wrap items-center gap-5">
+  <p class="text-3xl text-start pb-5 pl-5 font-montserrat text-marvelRed font-medium">Top Heroes</p>
+  <div class="w-full flex flex-wrap gap-5 items-center justify-center pl-5 pr-5">
     <a *ngFor="let hero of heroes" routerLink="/detail/{{hero.id}}">
-      <div class="group h-52 w-52 [perspective:1500px]">
+      <div class="group h-52 w-52 [perspective:1500px] 2xl:w-card 2xl:h-card">
         <div class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
           <div class="absolute inset-0">
-            <img class="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}">
+            <img class="object-center h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}">
           </div>
           <div class="absolute inset-0 h-full w-full rounded-xl bg-black/40 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden] overflow-hidden text-pretty">
-              <h2 class="pt-10 text-white text-xl">{{hero.name}}</h2>
+              <h2 class="pt-10 text-white text-xl md:text-3xl">{{hero.name}}</h2>
               <p>{{hero.description}}</p>
           </div>
         </div>

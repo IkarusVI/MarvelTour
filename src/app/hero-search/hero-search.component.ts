@@ -11,15 +11,16 @@ import { HeroService } from '../hero.service';
 })
 export class HeroSearchComponent implements OnInit {
   hero?: Hero;
-  private searchTerms = new Subject<string>();
-
+  
   constructor(private heroService: HeroService) { }
 
   search(term: string): void {
     this.heroService.searchHeroes(term)
-      .subscribe((result: any) => {
-        if (result.data && result.data.results && result.data.results.length > 0) {
-          this.hero = result.data.results[0];
+      .subscribe({
+        next: (heroes: Hero[]) => {
+          if (heroes && heroes.length > 0) {
+            this.hero = heroes[0];
+          }
         }
       });
   }

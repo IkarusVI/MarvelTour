@@ -6,8 +6,18 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Roboto', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'sans': ['Montserrat', 'sans-serif'],
       },
+      width:{
+        "card": "400px",
+      },
+      height:{
+        "card": "550px",
+      },
+      colors:{
+        marvelRed: '#ED1D24',
+      }
     },
   },
   plugins: [],

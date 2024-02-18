@@ -1,13 +1,24 @@
-<div *ngIf="hero">
-    <input [(ngModel)]="hero.name" />
-    <label for="heroName">Nombre del heroe</label>
-    <span id="heroName">{{hero.name}}</span>
-    <label for="heroId">Id del heroe</label>
-    <span id="heroId">{{hero.id}}</span>
-    <img [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}">
-    <label for="heroDescription">Descripción</label>
-    <span id="heroDescription">{{hero.description}}</span>
+<div *ngIf="hero" class="flex items-start justify-start flex-col p-5 gap-1 min-h-screen">
+    <p class="text-3xl text-start pb-5 lg:text-5xl font-montserrat text-marvelRed font-medium">{{hero.name}} Details</p>
 
-    <button (click)="save()">Save</button>
-    <button (click)="goBack()">Back</button>
+    <div class="w-full">
+        <p class="font-montserrat text-lg lg:text-3xl lg:font-normal text-start text-marvelRed font-medium relative translate-y-5 translate-x-3 bg-gray-900 w-fit border-marvelRed border-solid border-l-2 border-r-2 p-1">Hero Name</p>
+        <input  [(ngModel)]="hero.name" class="p-3 bg-transparent border-solid border-2 border-marvelRed w-full lg:w-1/2 lg:text-lg rounded-md  h-14 text-white focus:outline-none"/>
+    </div>
+
+    <span id="heroId" class="text-white text-lg lg:text-xl">Hero id {{hero.id}}</span>
+
+    <div class="flex flex-col xl:flex-row gap-3 w-full">
+        <img [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}" class=" aspect-square rounded-xl shadow-xl w-full xl:w-1/2 2xl:w-1/3 object-cover">
+
+        <div class="flex flex-col items-start justify-center w-full">
+            <label for="heroDescription" class="text-2xl lg:text-4xl text-start pb-5 font-montserrat pt-2 text-marvelRed font-medium ">Description</label>
+            <span id="heroDescription" class="text-white md:text-xl lg:text-2xl 2xl:w-1/2 font-montserrat">{{hero.description}}</span>
+
+            <div class="flex gap-3 pt-5">
+                <button (click)="save()" class="pl-3 pr-3 pt-1 pb-1 border-2 md:pl-5 md:pr-5 md:pt-3 md:pb-3  lg:pl-7 lg:pr-7 lg:pt-4 lg:pb-4 border-green-400 hover:bg-green-400 transition-all rounded-md text-white lg:text-xl">Save</button>
+                <button (click)="goBack()" class="pl-3 pr-3 pt-1 pb-1 border-2 md:pl-5 md:pr-5 md:pt-3 md:pb-3  lg:pl-7 lg:pr-7 lg:pt-4 lg:pb-4 border-marvelRed hover:bg-marvelRed transition-all rounded-md text-white lg:text-xl">Back</button>
+            </div>
+        </div>
+    </div>
 </div>

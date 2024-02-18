@@ -6,15 +6,17 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Hero } from './hero';
 import { MessageService } from './message.service';
+import { ApiResponse } from './api-response';
 
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
 
+  
   private baseUrl = "https://gateway.marvel.com/v1/public/characters";
   private credentials = '&ts=ironman&apikey=35eb67b1582b845d5d1076ff9b4371bc&hash=3c1f59ca8ad07f4e16f8ba00cc2578e2';
-  private heroesUrl = 'https://gateway.marvel.com/v1/public/characters?ts=ironman&apikey=35eb67b1582b845d5d1076ff9b4371bc&hash=3c1f59ca8ad07f4e16f8ba00cc2578e2';  // URL to web api
-  private mia="https://gateway.marvel.com/v1/public/characters?name=abyss&ts=ironman&apikey=35eb67b1582b845d5d1076ff9b4371bc&hash=3c1f59ca8ad07f4e16f8ba00cc2578e2";
+  private heroesUrl = 'https://gateway.marvel.com/v1/public/characters?ts=ironman&apikey=35eb67b1582b845d5d1076ff9b4371bc&hash=3c1f59ca8ad07f4e16f8ba00cc2578e2';
+  
 
 
   httpOptions = {
@@ -27,31 +29,57 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
+    const random = Math.floor(Math.random() * 1000) + 1;
+    return this.http.get<ApiResponse>(`${this.heroesUrl}&limit=20&offset=${random}`)
       .pipe(
+        map(response => {
+          if (!response || !response.data || !Array.isArray(response.data.results)) {
+            throw new Error('Respuesta de API inesperada');
+          }
+          return response.data.results as Hero[];
+        }),
         tap(_ => this.log('fetched heroes')),
         catchError(this.handleError<Hero[]>('getHeroes', []))
       );
   }
 
   getHeroesLimited(page: number): Observable<Hero[]> {
-    const url = `${this.baseUrl}?limit=${page}&${this.credentials}`;
-
-    return this.http.get<Hero[]>(url).pipe(
+    const random = Math.floor(Math.random() * 1000) + 1;
+    const url = `${this.baseUrl}&limit=${page}&offset=${random}&${this.credentials}`;
+  
+    return this.http.get<ApiResponse>(url).pipe(
+      map(response => {
+        if (!response || !response.data || !Array.isArray(response.data.results)) {
+          throw new Error('Respuesta de API inesperada');
+        }
+        return response.data.results as Hero[];
+      }),
       tap(_ => this.log('fetched heroes')),
-      catchError(this.handleError<Hero[]>('getHeroes', []))
+      catchError(this.handleError<Hero[]>('getHeroesLimited', []))
     );
   }
-
+  
   searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
       return of([]);
     }
-    const url = `${this.baseUrl}?name=${term}${this.credentials}`;
-    return this.http.get<Hero[]>(url).pipe(
-      tap(x => x.length ?
-         this.log(`found heroes matching "${term}"`) :
-         this.log(`no heroes matching "${url}"`)),
+  
+    const url = `${this.baseUrl}?name=${term}&${this.credentials}`;
+  
+    return this.http.get<ApiResponse>(url).pipe(
+      map(response => {
+        if (!response || !response.data || !Array.isArray(response.data.results)) {
+          throw new Error('Respuesta de API inesperada');
+        }
+        return response.data.results as Hero[];
+      }),
+      tap(heroes => {
+        if (heroes && heroes.length > 0) {
+          this.log(`found heroes matching "${term}"`);
+        } else {
+          this.log(`no heroes matching "${term}"`);
+        }
+      }),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
   }
@@ -135,3 +163,7 @@ export class HeroService {
     this.messageService.add(`HeroService: ${message}`);
   }
 }
+function random_int(arg0: number, arg1: number) {
+  throw new Error('Function not implemented.');
+}
+

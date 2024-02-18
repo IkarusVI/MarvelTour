@@ -1,12 +1,21 @@
-<div id="search-component">
-  <label for="search-box">Hero Search</label>
-  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+<div id="search-component" class="p-5 pt-10 min-h-screen flex w-full flex-col items-center">
+
+  <div class="w-full">
+    <p class="font-montserrat text-lg lg:text-2xl text-start text-marvelRed font-medium relative translate-y-5 translate-x-3 bg-gray-900 w-fit border-marvelRed border-solid border-l-2 border-r-2 p-1">Find Hero</p>
+    <input class="p-3 bg-transparent border-solid border-2 border-marvelRed w-full lg:w-1/2 rounded-md  h-14 text-white focus:outline-none"  #searchBox id="search-box" (input)="search(searchBox.value)"/>
+  </div>
+
+  <div *ngIf="hero" class="flex items-center flex-col justify-center text-center md:justify-start md:items-start gap-5 w-fit md:flex-row lg:self-start">
+    <a routerLink="/detail/{{hero.id}}" class="">
+      <img [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}" class="mt-10 rounded-xl object-cover w-full h-96 md:w-card md:h-card shadow-xl">
+    </a>  
+
+    <div class="flex flex-col items-center justify-center content-start text-center md:h-card md:w-card md:border-solid md:border-2 gap-3 md:border-white/50 md:mt-10 md:rounded-xl md:p-5 overflow-hidden">
+      <span class="text-white text-center text-3xl">{{hero.name}}</span>
+      <span class="text-white/55 text-center text-xl">{{hero.description}}</span>
+    </div>  
+  </div>
+
+  
 </div>
 
-<div *ngIf="hero">
-  <a routerLink="/detail/{{hero.id}}">
-    <img [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension" alt="{{hero.name}}">
-    <span>{{hero.name}}</span>
-    <span>{{hero.description}}</span>
-  </a>
-</div>

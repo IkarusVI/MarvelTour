@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { ApiResponse } from '../api-response';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,19 +20,10 @@ export class DashboardComponent implements OnInit {
   
   getHeroes(): void {
     this.heroService.getHeroes()
-      .subscribe((result: any) => {
+      .subscribe((result: Hero[]) => {
         if (result) {
-          this.heroes = result.data.results;
-          this.shuffleHeroes();
+          this.heroes = result;
         }
       });
-  }
-
-  
-  shuffleHeroes(): void {
-    for (let i = this.heroes.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [this.heroes[i], this.heroes[j]] = [this.heroes[j], this.heroes[i]];
-    }
   }
 }
