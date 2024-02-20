@@ -1,17 +1,17 @@
-<h2 class="text-3xl text-start pb-5 pl-5 font-montserrat text-marvelRed font-medium">My Heroes</h2>
+<h2 class="text-3xl text-start pb-5 pl-5 text-marvelRed font-medium">My Heroes</h2>
 
 <div class="min-h-screen p-5">
-  <p class="font-montserrat text-lg lg:text-2xl text-start text-marvelRed font-medium bg-gray-900 w-fit">Hero name</p>
-  <input class="p-3 bg-transparent border-solid border-2 border-marvelRed w-full sm:w-1/2 rounded-md  h-14 text-marvelRed focus:outline-none" id="new-hero" #heroName />
+  <p class="text-lg lg:text-2xl text-start text-marvelRed font-medium w-fit">Hero Name</p>
+  <input class="p-3 bg-transparent border-solid border-2 border-marvelRed w-full sm:w-1/2 rounded-md  h-14 dark:text-white focus:outline-none" id="new-hero" #heroName />
 
   <!-- (click) passes input value to add() and then clears the input -->
-  <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''" class="border-solid border-2 border-blue-500 text-white mt-2 p-1 rounded-md sm:ml-3">Add hero</button>
+  <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''" class="border-solid border-2 border-blue-500 dark:text-white text-blue-500 hover:text-white hover:bg-blue-500 transition-all mt-2 p-1 rounded-md sm:ml-3">Add hero</button>
 
   <ul class="heroes">
     <li *ngFor="let hero of heroes" class="mt-3 flex xl:w-1/2">
       <a routerLink="/detail/{{hero.id}}" class="grow flex">
-        <span class="badge bg-blue-500 text-white p-1 rounded-sm">{{hero.id}}</span> 
-        <span class="bg-marvelRed/70 text-white p-1 rounded-sm ml-2 grow">{{hero.name}}</span>
+        <span class="badge bg-blue-500 min-w-20 text-white p-1 rounded-sm">{{hero.id}}</span> 
+        <span class="dark:bg-marvelRed/70 bg-marvelRed/90 text-white p-1 rounded-sm ml-2 grow">{{hero.name}}</span>
       </a>
       <button type="button" class="delete rounded-sm text-white bg-gray-800 hover:bg-gray-900 transition-all ml-2 w-9" title="delete hero" (click)="delete(hero)">x</button>
     </li>
