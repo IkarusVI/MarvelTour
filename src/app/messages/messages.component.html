@@ -1,9 +1,8 @@
-<div *ngIf="messageService.messages.length" class="overflow-hidden">
+<div *ngIf="messageService.messages.length" class="overflow-hidden pl-5 pb-5">
 
-  <h2>Messages</h2>
+  <h2 class="text-marvelRed">Messages</h2>
   <button type="button"
-          class="clear"
+          class="clear border-2 px-4 py-2 border-marvelRed rounded-lg hover:bg-marvelRed  hover:text-white dark:text-white"
           (click)="messageService.clear()">Clear messages</button>
-  <div class="text-white" *ngFor='let message of messageService.messages'> {{message}} </div>
-
+  <div class="dark:text-white" *ngFor='let message of messageService.messages'> {{message}} </div>
 </div>
